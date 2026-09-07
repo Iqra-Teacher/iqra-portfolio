@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-cream: #FAF8F5;
+  --color-gold: #C5A059;
+  --color-charcoal: #1C1917;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: #FAF8F5;
+  color: #1C1917;
+}
+
+body {
+  background-color: #FAF8F5;
+  color: #1C1917;
+  font-family: 'Manrope', sans-serif;
+  overflow-x: hidden;
+}
+
+/* Custom Academic Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FAF8F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #DFCA9B;
+  border-radius: 4px;
+  border: 2px solid #FAF8F5;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #C5A059;
+}
+
+/* Paper texture subtle background overlay */
+.bg-academic-pattern {
+  background-color: #FAF8F5;
+  background-image: radial-gradient(#C5A059 0.4px, transparent 0.4px);
+  background-size: 24px 24px;
+  background-position: 0 0;
+}
+
+/* Academic Card styling */
+.academic-card {
+  background: #FDFBF7;
+  border: 1px solid #E8DFD1;
+  box-shadow: 0 4px 20px -2px rgba(28, 25, 23, 0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.academic-card:hover {
+  border-color: #C5A059;
+  box-shadow: 0 12px 30px -4px rgba(28, 25, 23, 0.08), 0 4px 12px -2px rgba(197, 160, 89, 0.12);
+  transform: translateY(-2px);
+}
+
+/* Gold Divider Line */
+.gold-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, #C5A059 50%, transparent 100%);
+  opacity: 0.4;
+}
+
+/* Thin Border Highlight */
+.gold-border-subtle {
+  border: 1px solid rgba(197, 160, 89, 0.3);
+}
+
+/* Smooth Focus Rings */
+:focus-visible {
+  outline: 2px solid #C5A059;
+  outline-offset: 3px;
+}
+
+/* Accessibility: Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
