@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS public.profiles (
   title TEXT NOT NULL DEFAULT 'B.Ed Aspirant | Aspiring Teacher',
   bio TEXT NOT NULL DEFAULT 'Passionate about creating a positive and engaging learning environment where every student feels valued, confident and motivated to learn.',
   email TEXT NOT NULL,
-  phone TEXT NOT NULL DEFAULT '+91 8077241972',
-  address TEXT NOT NULL DEFAULT 'Near Shahab Masjid, 18/7 Ground Floor, Batla House, Okhla, New Delhi',
+  phone TEXT NOT NULL DEFAULT '',
+  address TEXT NOT NULL DEFAULT 'New Delhi, India',
   resume_url TEXT DEFAULT '',
   role TEXT NOT NULL DEFAULT 'user', -- 'admin' or 'user'
   updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL

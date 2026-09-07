@@ -1,14 +1,16 @@
 import React, { useState } from 'react';
-import { MapPin, Send, CheckCircle } from 'lucide-react';
+import { MapPin, Send, CheckCircle, AlertCircle } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import emailjs from '@emailjs/browser';
 import { TEACHER_INFO } from '../data/teacherData';
 import { BotanicalDecoration } from '../components/BotanicalDecoration';
 
 const contactSchema = z.object({
   name: z.string().min(2, 'Name is required'),
-  email: z.string().email('Please enter a valid email address'),
+  phone: z.string().min(10, 'Please enter a valid phone number'),
+  email: z.union([z.string().email('Please enter a valid email address'), z.literal('')]).optional(),
   subject: z.string().optional(),
   message: z.string().min(10, 'Message must be at least 10 characters long'),
 });
@@ -18,6 +20,7 @@ type ContactFormValues = z.infer<typeof contactSchema>;
 export const ContactSection: React.FC = () => {
   const [submitting, setSubmitting] = useState(false);
   const [sentSuccess, setSentSuccess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const {
     register,
@@ -30,13 +33,41 @@ export const ContactSection: React.FC = () => {
 
   const onSubmit = async (data: ContactFormValues) => {
     setSubmitting(true);
+    setSentSuccess(false);
+    setErrorMessage(null);
+
     try {
-      // Simulate EmailJS or server dispatch
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+
+      if (!serviceId || !templateId || !publicKey) {
+        throw new Error('Email service is not configured. Please set VITE_EMAILJS_SERVICE_ID, VITE_EMAILJS_TEMPLATE_ID, and VITE_EMAILJS_PUBLIC_KEY in your environment variables.');
+      }
+
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: data.name,
+          name: data.name,
+          phone: data.phone,
+          email: data.email || 'Not provided',
+          reply_to: data.email || '',
+          subject: data.subject || 'New Contact Inquiry',
+          message: data.message,
+        },
+        publicKey
+      );
+
       setSentSuccess(true);
       reset();
-    } catch (err) {
+    } catch (err: any) {
       console.error('Contact form submission error:', err);
+      const msg = typeof err === 'string' 
+        ? err 
+        : err?.text || err?.message || 'Failed to send message. Please try again later.';
+      setErrorMessage(msg);
     } finally {
       setSubmitting(false);
     }
@@ -115,6 +146,16 @@ export const ContactSection: React.FC = () => {
                 </div>
               )}
 
+              {errorMessage && (
+                <div className="flex items-center gap-3 p-4 mb-6 text-xs border rounded-xl bg-red-50 border-red-300 text-red-800">
+                  <AlertCircle className="w-5 h-5 text-red-600 shrink-0" />
+                  <div>
+                    <p className="font-bold">Failed to Send Message</p>
+                    <p>{errorMessage}</p>
+                  </div>
+                </div>
+              )}
+
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 text-left">
                 
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
@@ -134,10 +175,28 @@ export const ContactSection: React.FC = () => {
                     )}
                   </div>
 
+                  {/* Phone Number */}
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold tracking-wider uppercase text-charcoal">
+                      Phone Number *
+                    </label>
+                    <input
+                      type="tel"
+                      placeholder="e.g. +91 9876543210"
+                      {...register('phone')}
+                      className="w-full px-4 py-2.5 rounded-xl border border-gold-subtle bg-cream-50 text-charcoal text-xs focus:ring-1 focus:ring-gold focus:border-gold"
+                    />
+                    {errors.phone && (
+                      <span className="text-[11px] text-red-600">{errors.phone.message}</span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   {/* Email */}
                   <div className="space-y-1">
                     <label className="block text-xs font-bold tracking-wider uppercase text-charcoal">
-                      Your Email *
+                      Your Email (Optional)
                     </label>
                     <input
                       type="email"
@@ -149,19 +208,19 @@ export const ContactSection: React.FC = () => {
                       <span className="text-[11px] text-red-600">{errors.email.message}</span>
                     )}
                   </div>
-                </div>
 
-                {/* Subject */}
-                <div className="space-y-1">
-                  <label className="block text-xs font-bold tracking-wider uppercase text-charcoal">
-                    Subject (Optional)
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Teaching Inquiry / School Event"
-                    {...register('subject')}
-                    className="w-full px-4 py-2.5 rounded-xl border border-gold-subtle bg-cream-50 text-charcoal text-xs focus:ring-1 focus:ring-gold focus:border-gold"
-                  />
+                  {/* Subject */}
+                  <div className="space-y-1">
+                    <label className="block text-xs font-bold tracking-wider uppercase text-charcoal">
+                      Subject (Optional)
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="e.g. Teaching Inquiry / School Event"
+                      {...register('subject')}
+                      className="w-full px-4 py-2.5 rounded-xl border border-gold-subtle bg-cream-50 text-charcoal text-xs focus:ring-1 focus:ring-gold focus:border-gold"
+                    />
+                  </div>
                 </div>
 
                 {/* Message */}

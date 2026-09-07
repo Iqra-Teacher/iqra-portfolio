@@ -3,9 +3,9 @@ import { EducationItem, ExperienceItem, CompetencyItem } from '../types';
 export const TEACHER_INFO = {
   name: "Iqra Hasan",
   title: "B.Ed Aspirant | Aspiring Teacher",
-  phone: "+91 8077241972",
-  email: "Iqrahasan848@gmail.com",
-  address: "Near Shahab Masjid, 18/7 Ground Floor, Batla House, Okhla, New Delhi",
+  phone: "",
+  email: "",
+  address: "New Delhi, India",
   eyebrow: "INSPIRING YOUNG MINDS",
   heroBio: "Passionate about creating a positive and engaging learning environment where every student feels valued, confident and motivated to learn.",
   aboutTitle: "A Dedicated and Passionate Teacher",
