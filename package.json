@@ -2,7 +2,7 @@
   "name": "port",
   "private": true,
   "version": "0.0.0",
-  "homepage": "https://Abdul00kadir.github.io/Portfolio",
+  "homepage": "https://iqra-teacher.github.io/iqra-portfolio/",
   "type": "module",
   "scripts": {
     "dev": "vite",

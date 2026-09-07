@@ -8,12 +8,16 @@ import { AdminPage } from './pages/AdminPage';
 
 export function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/about" element={<HomePage />} />
+        <Route path="/experience" element={<HomePage />} />
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/achievements" element={<AchievementsPage />} />
         <Route path="/certificates" element={<CertificatesPage />} />
+        <Route path="/testimonials" element={<HomePage />} />
+        <Route path="/contact" element={<HomePage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
