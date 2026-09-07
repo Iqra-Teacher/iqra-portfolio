@@ -1,10 +1,32 @@
 import React from 'react';
-import { Mail, Phone, MapPin, ArrowUp } from 'lucide-react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { MapPin, ArrowUp } from 'lucide-react';
 import { TEACHER_INFO } from '../data/teacherData';
 
 export const Footer: React.FC = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    if (href.startsWith('#')) {
+      if (location.pathname === '/' || location.pathname === '') {
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      } else {
+        navigate('/' + href);
+      }
+    } else {
+      navigate(href);
+    }
   };
 
   return (
@@ -41,16 +63,16 @@ export const Footer: React.FC = () => {
               Navigation
             </h4>
             <ul className="space-y-2 text-xs uppercase tracking-wider font-semibold text-charcoal-medium">
-              <li><a href="#home" className="hover:text-gold transition-colors">Home</a></li>
-              <li><a href="#about" className="hover:text-gold transition-colors">About Me</a></li>
-              <li><a href="#experience" className="hover:text-gold transition-colors">Education & Experience</a></li>
-              <li><a href="#gallery" className="hover:text-gold transition-colors">Classroom Moments</a></li>
-              <li><a href="#testimonials" className="hover:text-gold transition-colors">Testimonials</a></li>
-              <li><a href="#contact" className="hover:text-gold transition-colors">Contact</a></li>
+              <li><a href="#home" onClick={(e) => handleNavClick(e, '#home')} className="hover:text-gold transition-colors">Home</a></li>
+              <li><a href="#about" onClick={(e) => handleNavClick(e, '#about')} className="hover:text-gold transition-colors">About Me</a></li>
+              <li><a href="#experience" onClick={(e) => handleNavClick(e, '#experience')} className="hover:text-gold transition-colors">Education & Experience</a></li>
+              <li><a href="#gallery" onClick={(e) => handleNavClick(e, '#gallery')} className="hover:text-gold transition-colors">Classroom Moments</a></li>
+              <li><a href="#testimonials" onClick={(e) => handleNavClick(e, '#testimonials')} className="hover:text-gold transition-colors">Testimonials</a></li>
+              <li><a href="#contact" onClick={(e) => handleNavClick(e, '#contact')} className="hover:text-gold transition-colors">Contact</a></li>
             </ul>
           </div>
 
-          {/* Col 3: Contact Info */}
+          {/* Col 3: Contact Info (Commented out for future use)
           <div className="md:col-span-4 space-y-3">
             <h4 className="font-serif text-lg font-semibold text-charcoal border-b border-gold/30 pb-2 inline-block">
               Contact Details
@@ -60,29 +82,18 @@ export const Footer: React.FC = () => {
                 <MapPin className="w-4 h-4 text-gold shrink-0 mt-0.5" />
                 <span>{TEACHER_INFO.address}</span>
               </div>
-              <div className="flex items-center gap-3">
-                <Phone className="w-4 h-4 text-gold shrink-0" />
-                <a href={`tel:${TEACHER_INFO.phone}`} className="hover:text-gold transition-colors">
-                  {TEACHER_INFO.phone}
-                </a>
-              </div>
-              <div className="flex items-center gap-3">
-                <Mail className="w-4 h-4 text-gold shrink-0" />
-                <a href={`mailto:${TEACHER_INFO.email}`} className="hover:text-gold transition-colors">
-                  {TEACHER_INFO.email}
-                </a>
-              </div>
             </div>
           </div>
+          */}
         </div>
 
         {/* Bottom copyright & Scroll Top */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-charcoal-muted">
           <p className="flex items-center gap-2">
             <span>© {new Date().getFullYear()} Iqra Hasan. All rights reserved. Designed for Academic Excellence.</span>
-            <a href="/admin" className="opacity-40 hover:opacity-100 hover:text-gold transition-opacity text-[10px] border-l border-gold-subtle pl-2">
+            <Link to="/admin" className="opacity-40 hover:opacity-100 hover:text-gold transition-opacity text-[10px] border-l border-gold-subtle pl-2">
               Admin Login
-            </a>
+            </Link>
           </p>
           <button
             onClick={scrollToTop}

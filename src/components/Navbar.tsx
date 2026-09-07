@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { TEACHER_INFO } from '../data/teacherData';
 
@@ -9,6 +10,8 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ activeSection = 'home' }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,12 +36,18 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection = 'home' }) => {
     setMobileMenuOpen(false);
     
     if (href.startsWith('#')) {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+      if (location.pathname === '/' || location.pathname === '') {
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      } else {
+        navigate('/' + href);
       }
     } else {
-      window.location.href = href;
+      navigate(href);
     }
   };
 

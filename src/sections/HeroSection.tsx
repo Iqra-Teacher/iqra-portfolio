@@ -2,18 +2,19 @@ import React from 'react';
 import { Download, Mail, Award, GraduationCap, BookOpen } from 'lucide-react';
 import { TEACHER_INFO } from '../data/teacherData';
 import { BotanicalDecoration } from '../components/BotanicalDecoration';
+import iqraImage from '../assets/iqra.png';
 
 export const HeroSection: React.FC = () => {
   return (
-    <section id="home" className="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-academic-pattern">
+    <section id="home" className="relative pt-32 pb-20 overflow-hidden md:pt-40 md:pb-28 bg-academic-pattern">
       {/* Background Soft Gold Glow */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold/5 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      <div className="relative z-10 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="grid items-center grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-8">
           
           {/* Left Column: Typography & CTAs */}
-          <div className="lg:col-span-7 space-y-6 text-left">
+          <div className="space-y-6 text-left lg:col-span-7">
             
             {/* Eyebrow Label */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gold/30 bg-cream-50/80 backdrop-blur-sm">
@@ -28,18 +29,18 @@ export const HeroSection: React.FC = () => {
               <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl font-bold tracking-tight text-charcoal leading-[1.05]">
                 IQRA HASAN
               </h1>
-              <p className="font-serif italic text-2xl sm:text-3xl text-gold font-semibold tracking-wide">
+              <p className="font-serif text-2xl italic font-semibold tracking-wide sm:text-3xl text-gold">
                 {TEACHER_INFO.title}
               </p>
             </div>
 
             {/* Short Bio */}
-            <p className="text-charcoal-medium text-base sm:text-lg leading-relaxed max-w-2xl font-sans">
+            <p className="max-w-2xl font-sans text-base leading-relaxed text-charcoal-medium sm:text-lg">
               "{TEACHER_INFO.heroBio}"
             </p>
 
             {/* Action Buttons */}
-            <div className="pt-2 flex flex-wrap items-center gap-4">
+            <div className="flex flex-wrap items-center gap-4 pt-2">
               <a
                 href={TEACHER_INFO.resumeUrl}
                 target="_blank"
@@ -67,7 +68,7 @@ export const HeroSection: React.FC = () => {
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <Award className="w-4 h-4 text-gold shrink-0" />
-                  <span className="font-serif text-2xl sm:text-3xl font-bold text-charcoal">1+ Year</span>
+                  <span className="font-serif text-2xl font-bold sm:text-3xl text-charcoal">1+ Year</span>
                 </div>
                 <p className="text-[11px] uppercase tracking-wider text-charcoal-muted font-medium">Teaching Experience</p>
               </div>
@@ -75,7 +76,7 @@ export const HeroSection: React.FC = () => {
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <GraduationCap className="w-4 h-4 text-gold shrink-0" />
-                  <span className="font-serif text-2xl sm:text-3xl font-bold text-charcoal">B.Sc.</span>
+                  <span className="font-serif text-2xl font-bold sm:text-3xl text-charcoal">B.Sc.</span>
                 </div>
                 <p className="text-[11px] uppercase tracking-wider text-charcoal-muted font-medium">Completed</p>
               </div>
@@ -83,7 +84,7 @@ export const HeroSection: React.FC = () => {
               <div className="space-y-1">
                 <div className="flex items-center gap-2">
                   <BookOpen className="w-4 h-4 text-gold shrink-0" />
-                  <span className="font-serif text-2xl sm:text-3xl font-bold text-charcoal">B.Ed.</span>
+                  <span className="font-serif text-2xl font-bold sm:text-3xl text-charcoal">B.Ed.</span>
                 </div>
                 <p className="text-[11px] uppercase tracking-wider text-charcoal-muted font-medium">Aspirant</p>
               </div>
@@ -91,32 +92,23 @@ export const HeroSection: React.FC = () => {
 
           </div>
 
-          {/* Right Column: Teacher Portrait Placeholder Frame */}
-          <div className="lg:col-span-5 flex justify-center">
+          {/* Right Column: Teacher Portrait Frame */}
+          <div className="flex justify-center lg:col-span-5">
             <div className="relative w-full max-w-md">
               
               {/* Corner Botanical SVG decorations */}
               <BotanicalDecoration position="hero-corner" size={72} />
 
               {/* Decorative Outer Border */}
-              <div className="relative rounded-3xl border border-gold/40 p-3 bg-cream-50/60 shadow-academic">
-                <div className="relative rounded-2xl overflow-hidden bg-cream-200 aspect-[4/5] border border-gold-subtle flex flex-col items-center justify-center p-6 text-center group">
-                  
-                  {/* Clean SVG Placeholder Avatar */}
-                  <div className="w-32 h-32 rounded-full border-2 border-gold/50 bg-cream-50 flex items-center justify-center text-gold mb-4 shadow-sm group-hover:scale-105 transition-transform duration-500">
-                    <span className="font-serif font-bold text-4xl">IH</span>
-                  </div>
-
-                  <h3 className="font-serif text-2xl font-bold text-charcoal">IQRA HASAN</h3>
-                  <p className="text-xs uppercase tracking-widest text-gold font-semibold mt-1">B.Ed Aspirant & Educator</p>
-                  
-                  <div className="mt-4 px-4 py-2 rounded-lg border border-gold/20 bg-cream-50/80 text-[11px] text-charcoal-muted">
-                    <span>Teacher Portrait Placeholder</span>
-                    <p className="text-[10px] text-gold mt-0.5">(Actual teacher photo to be added)</p>
-                  </div>
-                  
+              <div className="relative p-3 border rounded-3xl border-gold/40 bg-cream-50/60 shadow-academic">
+                <div className="relative rounded-2xl overflow-hidden bg-cream-200 aspect-[4/5] border border-gold-subtle flex flex-col items-center justify-center group">
+                  <img 
+                    src={iqraImage} 
+                    alt="IQRA HASAN" 
+                    className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-105" 
+                  />
                   {/* Outer subtle gold accent ring */}
-                  <div className="absolute inset-0 border border-gold/20 rounded-2xl pointer-events-none" />
+                  <div className="absolute inset-0 border pointer-events-none border-gold/20 rounded-2xl" />
                 </div>
               </div>
 

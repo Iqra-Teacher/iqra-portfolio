@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { 
   Lock, LogOut, CheckCircle, XCircle, Trash2, Plus, 
   Upload, Layers, Award, FileCheck, MessageSquare, 
@@ -364,9 +365,9 @@ export const AdminPage: React.FC = () => {
           </form>
 
           <div className="pt-2 text-center">
-            <a href="/" className="text-xs text-charcoal-muted hover:text-gold uppercase tracking-wider">
+            <Link to="/" className="text-xs text-charcoal-muted hover:text-gold uppercase tracking-wider">
               ← Return to Portfolio Website
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -392,15 +393,13 @@ export const AdminPage: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            <a
-              href="/"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              to="/"
               className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-gold-subtle text-xs text-charcoal-medium hover:text-gold"
             >
               <Eye className="w-3.5 h-3.5 text-gold" />
               <span>View Website</span>
-            </a>
+            </Link>
 
             <button
               onClick={handleLogout}
